@@ -1,4 +1,4 @@
-# 📊 arketing Funnel & Conversion Drop-Off Analyzer
+# 📊 Marketing Funnel & Conversion Drop-Off Analyzer
 
 An end-to-end analytics system built to analyze ecommerce marketing funnel performance, identify drop-off points, and uncover conversion optimization opportunities.
 
