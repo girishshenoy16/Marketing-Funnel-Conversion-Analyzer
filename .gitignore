@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.env/
+.env.*
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit cache
+.streamlit/secrets.toml
+
+# Data files (RAW LARGE FILES)
+data/raw/*.csv
+
+# Processed files (optional - choose one approach)
+
+# OPTION A (Recommended for big data)
+data/processed/*.csv
+outputs
+
+# OPTION B (If processed files are small and needed for demo)
+# Keep them tracked by commenting above line
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDE
+.idea/
+
+# Build files
+dist/
+build/
+*.egg-info/
