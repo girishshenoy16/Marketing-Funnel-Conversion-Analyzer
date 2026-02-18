@@ -1,36 +1,52 @@
-# 📊 Ecommerce Growth Analytics Platform
+# 📊 arketing Funnel & Conversion Drop-Off Analyzer
 
-An end-to-end growth analytics system built to analyze ecommerce performance, customer behavior, and retention trends using real-world event data.
+An end-to-end analytics system built to analyze ecommerce marketing funnel performance, identify drop-off points, and uncover conversion optimization opportunities.
 
-This project demonstrates production-style data engineering, metric aggregation, and an executive-level BI dashboard built with Streamlit.
+This project demonstrates real-world funnel analytics, cohort retention modeling, and statistical experiment validation using production-style data architecture.
 
 ---
 
-## 🚀 Project Overview
+## 🚀 Project Objective
 
-This platform answers key business questions:
+Businesses lose revenue due to inefficiencies across the marketing funnel.
 
-- What is our conversion funnel performance?
+This system helps answer:
+
+- Where are users dropping off in the funnel?
+- What is the true sequential conversion rate?
 - Which product categories convert best?
 - How strong is customer retention?
 - Are A/B experiments statistically significant?
-- How does revenue trend over time?
-
-The system separates heavy data processing from the visualization layer to ensure high performance and scalability.
 
 ---
+## 🔍 Core Funnel Flow
+
+```
+
+View → Cart → Purchase
+
+```
+
+The platform validates both:
+
+- Standard funnel progression
+- True sequential conversion logic
+- Drop-off percentage at each stage
+
+---
+
 
 ## 🏗 Architecture
 
 ```
 
-Raw Events (Kaggle Dataset)
+Raw Event Data
 ↓
 Data Cleaning
 ↓
 Session-Level Funnel Engineering
 ↓
-Metric & Cohort Aggregation
+Category & Cohort Metrics
 ↓
 Precomputed Summary Tables
 ↓
@@ -38,7 +54,7 @@ Streamlit Executive Dashboard
 
 ```
 
-The dashboard consumes only precomputed summary tables for sub-second load performance.
+Heavy computation is separated from the dashboard layer to ensure sub-second load performance.
 
 ---
 
@@ -46,7 +62,7 @@ The dashboard consumes only precomputed summary tables for sub-second load perfo
 
 ```
 
-ecommerce-growth-analytics-platform/
+Marketing-Funnel-Conversion-Analyzer/
 │
 ├── data/
 │   ├── raw/
@@ -73,51 +89,50 @@ ecommerce-growth-analytics-platform/
 
 ---
 
-## ⚡ Key Features
+## 📈 Dashboard Modules
 
-### 📈 Executive Dashboard
+### 🔹 Executive Overview
 - Total Sessions
 - Revenue
-- Conversion Rate
+- Overall Conversion Rate
 - Monthly Revenue Trend
 
-### 🔍 Funnel Analysis
-- View → Cart → Purchase
-- Sequential conversion validation
-- Drop-off visibility
+### 🔹 Funnel Analysis
+- View → Cart → Purchase breakdown
+- Drop-off percentage per stage
+- True sequential conversion validation
 
-### 🛍 Category Performance
-- Category-wise conversion rate
+### 🔹 Category-Level Conversion
 - Top converting categories
+- Category-wise conversion rate
 
-### 🔁 Cohort Retention
-- Monthly cohort analysis
+### 🔹 Retention & Cohort Analysis
 - Repeat purchase rate
-- Customer lifecycle behavior
+- Monthly cohort retention heatmap
 
-### 🧪 A/B Testing Simulation
+### 🔹 A/B Testing Simulation
 - Two-proportion z-test
 - Statistical significance validation
-- Conversion comparison between groups
+- Experiment-based conversion comparison
 
 ---
 
 ## 🧠 Engineering Highlights
 
-- Modular data pipeline orchestration using `main.py`
-- Subprocess-based step execution
-- Precomputed aggregation layer
-- Dashboard decoupled from raw event data
-- Optimized load time (<1 second)
-- Clean separation of data engineering and analytics layer
+- Modular data pipeline using subprocess orchestration
+- Precomputed aggregation layer for performance optimization
+- Session-level funnel engineering
+- Cohort index calculation using month differences
+- Statistical hypothesis testing for experiments
+- Dashboard load time optimized under 1 second
 
 ---
 
 ## 📊 Dataset
 
 Source: Kaggle Ecommerce Events Dataset  
-~885,000+ events  
-Real-world behavioral event structure  
+~885,000+ behavioral events  
+Real-world marketing funnel structure  
 
 ---
 
@@ -157,21 +172,19 @@ python.exe -m pip install --upgrade pip
 pip install -r requirements.txt
 ````
 
-## 4️⃣ Run the System
-
-### Step 1 — Run data pipeline
+## 4️⃣ Run data pipeline
 
 ```bash
 python src/main.py
 ```
 
-### Step 2 — Launch dashboard
+## 5️⃣ Launch dashboard
 
 ```bash
 streamlit run dashboard/app.py
 ```
 
-### 5️⃣ Launch dashboard
+## 6️⃣ Launch dashboard
 
 ```bash
 streamlit run dashboard/app.py
@@ -181,28 +194,27 @@ streamlit run dashboard/app.py
 
 ## 📌 Business Insights Example
 
-* Low Month-1 retention indicates electronics purchasing behavior.
-* Category-level variation highlights merchandising opportunities.
-* Funnel drop-off between View → Cart suggests UX improvement scope.
-* A/B test module allows rapid experiment validation.
+* High drop-off between View → Cart suggests UX optimization opportunity.
+* Low month-1 retention aligns with electronics category purchasing behavior.
+* Category-level variation highlights merchandising strategy gaps.
+* Experiment module enables rapid validation of marketing hypotheses.
 
 ---
 
 ## 🎯 What This Project Demonstrates
 
-* Real-world analytics thinking
-* Data pipeline design
-* Performance optimization
-* Statistical validation
-* Executive storytelling
-* Portfolio-ready BI development
-
+* Funnel analytics expertise
+* Conversion optimization thinking
+* Statistical testing capability
+* Performance-aware architecture design
+* Business-focused storytelling
+* 
 ---
 
-## 📈 Future Improvements
+## 🚀 Future Improvements
 
 * Real experiment integration
+* Automated ETL scheduling
+* Database-backed architecture
 * Lift & confidence interval reporting
 * Deployment to Streamlit Cloud
-* Database-backed architecture
-* Automated ETL scheduling
