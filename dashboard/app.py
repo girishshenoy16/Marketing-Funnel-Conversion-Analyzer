@@ -4,6 +4,13 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 from statsmodels.stats.proportion import proportions_ztest
+from pathlib import Path
+
+# -------------------------------------------------
+# OUTPUTS FOLDER
+# -------------------------------------------------
+OUTPUT_DIR = Path("outputs")
+OUTPUT_DIR.mkdir(exist_ok=True)
 
 # -------------------------------------------------
 # PAGE CONFIG
@@ -34,7 +41,6 @@ session_summary, category_summary, cohort_table, monthly_metrics = load_data()
 # HEADER
 # -------------------------------------------------
 st.title("📊 Ecommerce Growth & Funnel Analytics Platform")
-st.markdown("---")
 
 # -------------------------------------------------
 # TABS
@@ -76,12 +82,26 @@ with tab1:
     )
 
     fig_rev.update_layout(height=450)
+
+    fig_rev.write_html(OUTPUT_DIR / "monthly_revenue_trend.html")
+    fig_rev.write_image(OUTPUT_DIR / "monthly_revenue_trend.png")
+
     st.plotly_chart(fig_rev, use_container_width=True)
 
 # =================================================
 # FUNNEL TAB
 # =================================================
 with tab2:
+
+    sequential_sessions = session_summary[
+        session_summary["has_view"] &
+        session_summary["has_cart"] &
+        session_summary["has_purchase"]
+    ].shape[0]
+
+    true_seq_rate = round((sequential_sessions / total_sessions) * 100, 2)
+
+    st.metric("True Sequential Conversion", f"{true_seq_rate:.2f}%")
 
     view_sessions = session_summary["has_view"].sum()
     cart_sessions = session_summary["has_cart"].sum()
@@ -94,17 +114,12 @@ with tab2:
     ))
 
     fig_funnel.update_layout(template=plotly_template, height=500)
+
+    fig_funnel.write_html(OUTPUT_DIR / "funnel_analysis.html")
+    fig_funnel.write_image(OUTPUT_DIR / "funnel_analysis.png")
+
     st.plotly_chart(fig_funnel, use_container_width=True)
 
-    sequential_sessions = session_summary[
-        session_summary["has_view"] &
-        session_summary["has_cart"] &
-        session_summary["has_purchase"]
-    ].shape[0]
-
-    true_seq_rate = round((sequential_sessions / total_sessions) * 100, 2)
-
-    st.metric("True Sequential Conversion", f"{true_seq_rate:.2f}%")
 
 # =================================================
 # CATEGORY TAB
@@ -134,6 +149,9 @@ with tab3:
 
     fig_cat.update_traces(textposition="outside")
     fig_cat.update_layout(height=600)
+
+    fig_cat.write_html(OUTPUT_DIR / "category_conversion.html")
+    fig_cat.write_image(OUTPUT_DIR / "category_conversion.png")
 
     st.plotly_chart(fig_cat, use_container_width=True)
 
@@ -169,6 +187,9 @@ with tab4:
         height=500
     )
 
+    fig_cohort.write_html(OUTPUT_DIR / "cohort_retention.html")
+    fig_cohort.write_image(OUTPUT_DIR / "cohort_retention.png")
+
     st.plotly_chart(fig_cohort, use_container_width=True)
 
 # =================================================
@@ -201,6 +222,17 @@ with tab5:
     stat, pval = proportions_ztest(count, nobs)
     pval = round(pval, 2)
 
+    col1, col2, col3 = st.columns(3)
+
+    col1.metric("Group A Conversion", f"{rate_a:.2f}%")
+    col2.metric("Group B Conversion", f"{rate_b:.2f}%")
+    col3.metric("p-value", f"{pval:.2f}")
+
+    if pval < 0.05:
+        st.success("Statistically Significant Difference Detected")
+    else:
+        st.info("No Statistically Significant Difference")
+
     fig_ab = px.bar(
         x=["Group A", "Group B"],
         y=[rate_a, rate_b],
@@ -212,15 +244,7 @@ with tab5:
     fig_ab.update_traces(textposition="outside")
     fig_ab.update_layout(height=500)
 
+    fig_ab.write_html(OUTPUT_DIR / "ab_test_results.html")
+    fig_ab.write_image(OUTPUT_DIR / "ab_test_results.png")
+
     st.plotly_chart(fig_ab, use_container_width=True)
-
-    col1, col2, col3 = st.columns(3)
-
-    col1.metric("Group A Conversion", f"{rate_a:.2f}%")
-    col2.metric("Group B Conversion", f"{rate_b:.2f}%")
-    col3.metric("p-value", f"{pval:.2f}")
-
-    if pval < 0.05:
-        st.success("Statistically Significant Difference Detected")
-    else:
-        st.info("No Statistically Significant Difference")
