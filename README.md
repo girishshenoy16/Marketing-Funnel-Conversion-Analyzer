@@ -1,4 +1,4 @@
-# 📈 Ecommerce Growth & Funnel Analytics Platform
+# 📈 Marketing Funnel & Conversion Drop-Off Analyzer
 
 ### AI-Powered Growth Intelligence • Funnel Analytics • Conversion Intelligence • Retention Analytics
 
